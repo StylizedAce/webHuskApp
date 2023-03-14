@@ -12,7 +12,10 @@ public class AppStart implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-       // ServletContextListener.super.contextInitialized(sce);
+
+
+        try {
+        ServletContextListener.super.contextInitialized(sce);
         List<Person> personList = new ArrayList<>();
 
         Person person = new Person("Ace", "123", "Sylph, art, piano");
@@ -27,9 +30,14 @@ public class AppStart implements ServletContextListener {
         personList.add(person2);
         personList.add(person3);
 
-        for(Person p: personList){
+        for (Person p : personList) {
             personMap.put(p.getName(), p);
         }
+            sce.getServletContext().setAttribute("users", personMap);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+        System.out.println("Something happened");
 
 
     }
