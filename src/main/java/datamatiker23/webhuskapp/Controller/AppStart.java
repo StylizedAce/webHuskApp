@@ -18,10 +18,10 @@ public class AppStart implements ServletContextListener {
         ServletContextListener.super.contextInitialized(sce);
         List<Person> personList = new ArrayList<>();
 
-        Person person = new Person("Ace", "123", "Sylph, art, piano");
-        Person person1 = new Person("Daniel", "123", "Nokia phone, smartphone, gammeldags hjemmetelefon");
-        Person person2 = new Person("Nik", "123", "Bamse, is, pude");
-        Person person3 = new Person("Gabe", "123", "Sylph, art, piano");
+        Person person = new Person("Ace", "123", "Sylph", "art", "piano");
+        Person person1 = new Person("Daniel", "123", "Nokia phone", "smartphone", "gammeldags hjemmetelefon");
+        Person person2 = new Person("Nik", "123", "Bamse", "is", "pude");
+        Person person3 = new Person("Gabe", "123", "Sylph", "art", "piano");
 
         personMap = new TreeMap<>();
 

@@ -11,45 +11,59 @@ import java.util.Map;
 
 @WebServlet(name = "LoginServlet", value = "/LoginServlet")
 public class LoginServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Map<String, Person> personMap = Facade.getAllPersons();
 
-        String name = request.getParameter("navn");
+        boolean servletloggedIn = true;
+        String name = request.getParameter("name");
         String password = request.getParameter("password");
 
+        System.out.println(name);
+        System.out.println(password);
 
-        if(request.getSession().getAttribute("loggedin") == null){
-            request.getSession().setAttribute("loggedin", false);
+
+        if (request.getSession().getAttribute("loggedin") == null) {
+            request.getSession().setAttribute("loggedin", "false");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
 
 
-        if(!personMap.containsKey(name)){
-            request.getSession().setAttribute("msg", "Username or password is incorrect!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+        if ((request.getSession().getAttribute("loggedin")) == "false") {
+            servletloggedIn = false;
+
         }
 
+        if (!servletloggedIn) {
+            if (!personMap.containsKey(name)) {
+                request.getSession().setAttribute("msg", "Username or password is incorrect!");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            }
 
-
-        if(personMap.containsKey(name)){
-            if(personMap.get(name).getPassword().equals(password)){
-                request.getSession().setAttribute("user", personMap.get(name));
-                getServletContext().setAttribute("loggedin", true);
-                request.getRequestDispatcher("WEB-INF/hemmelig.jsp").forward(request, response);
+            if (personMap.containsKey(name)) {
+                if (personMap.get(name).getPassword().equals(password)) {
+                    request.getSession().setAttribute("user", personMap.get(name));
+                    request.getSession().setAttribute("loggedin", "true");
+                    request.getRequestDispatcher("WEB-INF/loggedIn.jsp").forward(request, response);
+                }
             }
         }
 
 
 
-        request.getRequestDispatcher("login.jsp").forward(request, response);
+        request.getRequestDispatcher("hej.jsp").forward(request, response);
+
+
 
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
+
+
+
 }

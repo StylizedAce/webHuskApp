@@ -11,7 +11,7 @@
 <h1><%= "Hello World!" %>
 </h1>
 <br/>
-<a href="LoginServlet">Log in</a>
+<a href="login.jsp">Log in</a>
 
 <c:forEach var="topic" items="${requestScope.personer}">
 
